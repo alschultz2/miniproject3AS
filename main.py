@@ -2,7 +2,7 @@
 # Adam Schultz
 # Mini Project 3
 
-# (5/5 points) Initial comments with your name, class and project at the top of your .py file. Compleated
+# (5/5 points) Initial comments with your name, class and project at the top of your .py file. Completed
 # (5/5 points) Proper import of packages used.
 # (70/70 points) Using Flask you need to setup the following:
 # (10/10 points) Setup a proper folder structure, use the tutorial assss an example.
