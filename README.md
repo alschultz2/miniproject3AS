@@ -7,7 +7,8 @@ Adam Schultz
 miniproject3AS
 
 ## Description
-
+The goal of this project is to use Flask to deploy a small web app of our own choice.
+The next goal is to make sure that the small web application meets the requirements.
 ## What my project is about
 
 ## Pip install instructions
