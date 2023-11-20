@@ -10,6 +10,11 @@
                     <h2 class="mb-0">Login</h2>
                 </div>
                 <div class="card-body">
+                    {% if message %}
+                        <div class="alert {% if 'successful' in message %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endif %}
                     <!-- Your login form here -->
                     <form action="{{ url_for('login') }}" method="post">
                         <div class="mb-3">

@@ -1,47 +1,53 @@
-import sqlite3
-import hashlib
+# db.py
 
-DATABASE = 'site.db'
+import sqlite3
+from flask import Flask, g
+
+app = Flask(__name__)
+DATABASE = 'database.db'
+
+def get_db():
+    if 'db' not in g:
+        g.db = sqlite3.connect(DATABASE)
+        g.db.row_factory = sqlite3.Row
+    return g.db
+
+def close_db(e=None):
+    db = g.pop('db', None)
+    if db is not None:
+        db.close()
+
+def init_db(app):
+    with app.app_context():
+        db = get_db()
+        with open('schema.sql', 'r') as f:
+            schema = f.read()
+        db.executescript(schema)
+        db.commit()
 
 def create_tables():
-    conn = sqlite3.connect(DATABASE)
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT NOT NULL,
-            password TEXT NOT NULL
-        )
-    ''')
-    conn.commit()
-    conn.close()
+    # Define your create_tables logic here
+    pass
 
 def register_user(username, password):
-    hashed_password = hash_password(password)
-    conn = sqlite3.connect(DATABASE)
-    cursor = conn.cursor()
-    cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, hashed_password))
-    conn.commit()
-    conn.close()
+    with get_db() as db:
+        db.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
+        db.commit()
 
 def get_user_by_username(username):
-    conn = sqlite3.connect(DATABASE)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM users WHERE username=?', (username,))
-    user = cursor.fetchone()
-    conn.close()
-    return user
+    with get_db() as db:
+        cursor = db.execute('SELECT * FROM users WHERE username = ?', (username,))
+        user = cursor.fetchone()
+        return user
 
-def check_password(user, password):
-    stored_password_hash = user[2] if user else None
-    return verify_password(password, stored_password_hash)
+def check_password(username, password):
+    user = get_user_by_username(username)
+    print(f"User: {user}")  # Add this line for debugging
+    if user is not None:
+        # Check the stored password against the provided password (plaintext comparison)
+        stored_password = user['password']
+        return stored_password == password
+    return False
 
-def hash_password(password):
-    # This is a simple hashing function using hashlib.
-    # In a real-world application, consider using a more secure hash function.
-    sha256 = hashlib.sha256()
-    sha256.update(password.encode('utf-8'))
-    return sha256.hexdigest()
-
-def verify_password(password, stored_hash):
-    return stored_hash == hash_password(password)
+if __name__ == '__main__':
+    init_db(app)
