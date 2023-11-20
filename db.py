@@ -1,22 +1,26 @@
 import sqlite3
-from werkzeug.security import generate_password_hash, check_password_hash
+import hashlib
 
 DATABASE = 'site.db'
 
 def create_tables():
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
-    with open('schema.sql', 'r') as schema_file:
-        schema = schema_file.read()
-        cursor.executescript(schema)
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL
+        )
+    ''')
     conn.commit()
     conn.close()
 
 def register_user(username, password):
-    password_hash = generate_password_hash(password, method='sha256')
+    hashed_password = hash_password(password)
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password_hash))
+    cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, hashed_password))
     conn.commit()
     conn.close()
 
@@ -29,4 +33,15 @@ def get_user_by_username(username):
     return user
 
 def check_password(user, password):
-    return user and check_password_hash(user[2], password)
+    stored_password_hash = user[2] if user else None
+    return verify_password(password, stored_password_hash)
+
+def hash_password(password):
+    # This is a simple hashing function using hashlib.
+    # In a real-world application, consider using a more secure hash function.
+    sha256 = hashlib.sha256()
+    sha256.update(password.encode('utf-8'))
+    return sha256.hexdigest()
+
+def verify_password(password, stored_hash):
+    return stored_hash == hash_password(password)
