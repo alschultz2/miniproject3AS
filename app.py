@@ -10,6 +10,7 @@ init_db(app)
 # Additional routes and configurations go here...
 # For example, a simple home route:
 
+# Home route
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -61,22 +62,33 @@ def logout():
     flash('You have been logged out', 'info')
     return redirect(url_for('home'))
 
-# Poll routes
-@app.route('/poll1')
+# Route to handle poll1 submissions
+@app.route('/poll1', methods=['GET', 'POST'])
 def poll1():
-    if 'logged_in' in session and session['logged_in']:
-        return render_template('poll1.html')
-    else:
-        flash('You need to be logged in to access this page', 'error')
+    if 'username' not in session or not session['logged_in']:
+        flash('You must be logged in to submit polls.', 'error')
         return redirect(url_for('login'))
 
-@app.route('/poll2')
+    if request.method == 'POST':
+        favorite_game = request.form.get('favorite_game')
+        # Process the submission as needed
+        flash(f'Thank you for submitting your favorite game: {favorite_game}', 'success')
+
+    return render_template('poll1.html')
+
+# Route to handle poll2 submissions
+@app.route('/poll2', methods=['GET', 'POST'])
 def poll2():
-    if 'logged_in' in session and session['logged_in']:
-        return render_template('poll2.html')
-    else:
-        flash('You need to be logged in to access this page', 'error')
+    if 'username' not in session or not session['logged_in']:
+        flash('You must be logged in to submit polls.', 'error')
         return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        disappointing_game = request.form.get('disappointing_game')
+        # Process the submission as needed
+        flash(f'Thank you for submitting the most disappointing game: {disappointing_game}', 'success')
+
+    return render_template('poll2.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -3,8 +3,16 @@
 {% block title %}Poll 1{% endblock %}
 
 {% block content %}
-    <div class="container mt-3">
-        <h2>Poll Question 1</h2>
-        <!-- Add your poll content here -->
+    <div class="jumbotron">
+        <h1 class="display-4">Poll 1: Your Current Favorite Videogame</h1>
+        <p class="lead">Please share your current favorite videogame with us.</p>
+        <!-- Your form for poll 1 here -->
+        <form action="{{ url_for('poll1') }}" method="post">
+            <div class="mb-3">
+                <label for="favorite_game" class="form-label">Favorite Videogame</label>
+                <input type="text" class="form-control" id="favorite_game" name="favorite_game" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
 {% endblock %}

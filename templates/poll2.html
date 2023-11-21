@@ -3,8 +3,16 @@
 {% block title %}Poll 2{% endblock %}
 
 {% block content %}
-    <div class="container mt-3">
-        <h2>Poll Question 2</h2>
-        <!-- Add your poll content here -->
+    <div class="jumbotron">
+        <h1 class="display-4">Poll 2: Most Disappointing Game</h1>
+        <p class="lead">Share the most disappointing game you've played lately.</p>
+        <!-- Your form for poll 2 here -->
+        <form action="{{ url_for('poll2') }}" method="post">
+            <div class="mb-3">
+                <label for="disappointing_game" class="form-label">Most Disappointing Game</label>
+                <input type="text" class="form-control" id="disappointing_game" name="disappointing_game" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
 {% endblock %}
