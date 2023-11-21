@@ -61,5 +61,22 @@ def logout():
     flash('You have been logged out', 'info')
     return redirect(url_for('home'))
 
+# Poll routes
+@app.route('/poll1')
+def poll1():
+    if 'logged_in' in session and session['logged_in']:
+        return render_template('poll1.html')
+    else:
+        flash('You need to be logged in to access this page', 'error')
+        return redirect(url_for('login'))
+
+@app.route('/poll2')
+def poll2():
+    if 'logged_in' in session and session['logged_in']:
+        return render_template('poll2.html')
+    else:
+        flash('You need to be logged in to access this page', 'error')
+        return redirect(url_for('login'))
+
 if __name__ == '__main__':
     app.run(debug=True)
