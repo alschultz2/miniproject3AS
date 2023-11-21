@@ -21,22 +21,22 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from db import init_db, register_user, get_user_by_username, check_password
+#Above are all the imports for the project
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Replace with a secure secret key
+app.secret_key = '318725'
+#Above is the flask initializations and the secret key ....shhhhhhhhhh.
 
-# Initialize the database
 init_db(app)
+#Above initializes the database
 
-# Additional routes and configurations go here...
-# For example, a simple home route:
 
-# Home route
 @app.route('/')
 def home():
     return render_template('home.html')
+#Above is the home route
 
-# Registration route
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     message = None
@@ -54,8 +54,9 @@ def register():
             message = 'Registration successful'
 
     return render_template('register.html', message=message)
+#Above is the register route
 
-# Login route
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     message = None
@@ -75,15 +76,17 @@ def login():
             message = 'Incorrect username or password'
 
     return render_template('login.html', message=message)
+#Above is the login route
 
-# Logout route
+
 @app.route('/logout')
 def logout():
     session.clear()
     flash('You have been logged out', 'info')
     return redirect(url_for('home'))
+#Above deals with the logout part of the program
 
-# Route to handle poll1 submissions
+
 @app.route('/poll1', methods=['GET', 'POST'])
 def poll1():
     if 'username' not in session or not session['logged_in']:
@@ -96,8 +99,9 @@ def poll1():
         flash(f'Thank you for submitting your favorite game: {favorite_game}', 'success')
 
     return render_template('poll1.html')
+#Everything above deals with connecting the route to poll1
 
-# Route to handle poll2 submissions
+
 @app.route('/poll2', methods=['GET', 'POST'])
 def poll2():
     if 'username' not in session or not session['logged_in']:
@@ -110,6 +114,9 @@ def poll2():
         flash(f'Thank you for submitting the most disappointing game: {disappointing_game}', 'success')
 
     return render_template('poll2.html')
+#Everything above deals with connecting to the route of poll2
+
 
 if __name__ == '__main__':
     app.run(debug=True)
+#Makes sure that the program doesnt run imported as a module but when a script is executed.
