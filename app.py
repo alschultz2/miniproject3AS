@@ -1,3 +1,24 @@
+# INF601 - Advanced Programming in Python
+# Adam Schultz
+# Mini Project 3
+
+# (5/5 points) Initial comments with your name, class and project at the top of your .py file. Completed
+# (5/5 points) Proper import of packages used. Completed
+# (70/70 points) Using Flask you need to setup the following: Completed
+# 10/10 points) Setup a proper folder structure, use the tutorial as an example. Completed
+# (20/20 points) You need to have a minimum of 5 pages, using a proper template structure. Completed(2 are only accessable after loging in).
+# (10/10 points) You need to have at least one page that utilizes a form and has the proper GET and POST routes setup. Completed
+# (10/10 points) You need to setup a SQLlite database with a minimum of two tables, linked with a foreign key. Maybe.....
+# (10/10) You need to use Bootstrap in your web templates. I won't dictate exactly what modules you need to use but
+# the more practice here the better. You need to at least make use of a modal. Completed
+# (10/10) You need to setup some sort of register and login system, you can use the tutorial as an example. Completed
+# (5/5 points) There should be a minimum of 5 commits on your project, be sure to commit often! Completed
+# (5/5 points) I will be checking out the master branch of your project. Please be sure to include a requirements.txt file
+# which contains all the packages that need installed. You can create this fille with the output of pip freeze at the terminal prompt. Completed
+# (10/10 points) There should be a README.md file in your project that explains what your project is, how to install the pip requirements,
+# and how to execute the program. Please use the GitHub flavor of Markdown. Be thorough on the explanations. You will need to explain
+# the steps of initializing the database and then how to run the development server for your project.
+
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from db import init_db, register_user, get_user_by_username, check_password
 
