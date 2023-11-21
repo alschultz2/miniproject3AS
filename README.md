@@ -27,7 +27,7 @@ In a terminal window, please type the following:
 ```
 python app.py
 ```
-below the command that you enter, you will see in blue hypertext:
+Below the command that you enter, you will see in blue hypertext:
 ```
 http://127.0.0.1:5000
 ```
