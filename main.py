@@ -20,3 +20,6 @@
 # the pip requirements, and how to execute the program. Please use the GitHub flavor of Markdown. Be thorough on the
 # explanations. You will need to explain the steps of initializing the database and then how to run the development
 # server for your project.
+
+
+#This is a useless file; the initial comments are already in the app.py file so ignore this one, I accidentally created it at the start and never used it. 
