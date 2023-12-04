@@ -21,20 +21,20 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from db import init_db, register_user, get_user_by_username, check_password
-#Above are all the imports for the project
+# Above are all the imports for the project
 
 app = Flask(__name__)
 app.secret_key = '318725'
-#Above is the flask initializations and the secret key ....shhhhhhhhhh.
+# Above is the flask initializations and the secret key ....shhhhhhhhhh.
 
 init_db(app)
-#Above initializes the database
+# Above initializes the database
 
 
 @app.route('/')
 def home():
     return render_template('home.html')
-#Above is the home route
+# Above is the home route
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -54,7 +54,7 @@ def register():
             message = 'Registration successful'
 
     return render_template('register.html', message=message)
-#Above is the register route
+# Above is the register route
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -76,7 +76,7 @@ def login():
             message = 'Incorrect username or password'
 
     return render_template('login.html', message=message)
-#Above is the login route
+# Above is the login route
 
 
 @app.route('/logout')
@@ -84,7 +84,7 @@ def logout():
     session.clear()
     flash('You have been logged out', 'info')
     return redirect(url_for('home'))
-#Above deals with the logout part of the program
+# Above deals with the logout part of the program
 
 
 @app.route('/poll1', methods=['GET', 'POST'])
@@ -99,7 +99,7 @@ def poll1():
         flash(f'Thank you for submitting your favorite game: {favorite_game}', 'success')
 
     return render_template('poll1.html')
-#Everything above deals with connecting the route to poll1
+# Everything above deals with connecting the route to poll1
 
 
 @app.route('/poll2', methods=['GET', 'POST'])
@@ -114,7 +114,7 @@ def poll2():
         flash(f'Thank you for submitting the most disappointing game: {disappointing_game}', 'success')
 
     return render_template('poll2.html')
-#Everything above deals with connecting to the route of poll2
+# Everything above deals with connecting to the route of poll2
 
 
 if __name__ == '__main__':
