@@ -1,5 +1,4 @@
 # db.py
-
 import sqlite3
 from flask import Flask, g
 
@@ -26,8 +25,8 @@ def init_db(app):
         db.commit()
 
 def create_tables():
-    # Define your create_tables logic here
     pass
+# The create_tables logic is here
 
 def register_user(username, password):
     with get_db() as db:
@@ -42,12 +41,11 @@ def get_user_by_username(username):
 
 def check_password(username, password):
     user = get_user_by_username(username)
-    print(f"User: {user}")  # Add this line for debugging
+    print(f"User: {user}")  # This line is for debugging
     if user is not None:
-        # Check the stored password against the provided password (plaintext comparison)
         stored_password = user['password']
         return stored_password == password
     return False
-
+# Check the stored password against the provided password (plaintext comparison)
 if __name__ == '__main__':
     init_db(app)
